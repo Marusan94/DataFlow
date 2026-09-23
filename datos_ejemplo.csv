@@ -1,0 +1,13 @@
+fecha,canal,producto,unidades,ingreso,costo,region
+2026-01-05,online,Alpha,12,1200,800,Norte
+2026-01-12,tienda,Beta,8,960,620,Sur
+2026-01-19,online,Alpha,15,1500,990,Este
+2026-02-02,tienda,Gamma,5,750,500,Oeste
+2026-02-09,online,Beta,20,2400,1600,Norte
+2026-02-16,mayorista,Alpha,30,2700,1900,Sur
+2026-03-01,online,Gamma,9,1350,900,Este
+2026-03-08,tienda,Alpha,11,1100,730,Oeste
+2026-03-15,online,Beta,18,2160,1400,Norte
+2026-03-22,mayorista,Gamma,25,3750,2500,Sur
+2026-04-05,online,Alpha,14,1400,920,Este
+2026-04-12,tienda,Beta,7,840,560,Oeste

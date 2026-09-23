@@ -1,88 +1,51 @@
-# EduAnalytics HUB 🎓 — De datos educativos a decisiones STEAM en una sola plataforma
+# DataFlow 📊 — Convierte tus datos en decisiones
 
-> **Live demo:** https://eduanalytics.onrender.com · **Stack:** Python 3.11 · Streamlit · Pandas · Plotly · Folium · OpenRouter (OpenAI) · Render · **Estado:** Producción, 4 módulos integrados, mobile-ready
+> Ex-EduAnalytics HUB, rehecho agnóstico estilo DataFlow. **Stack:** Python 3.11 · Streamlit · Pandas · Plotly · Render · **Estado:** Demo funcional, auth simulada, mobile-ready.
 
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.63-FF4B4B?logo=streamlit)](https://streamlit.io) [![Python](https://img.shields.io/badge/Python-3.11.9-3776AB?logo=python)](https://www.python.org) [![Render](https://img.shields.io/badge/Deploy-Render-46E3B7?logo=render)](https://eduanalytics.onrender.com) [![License](https://img.shields.io/badge/License-MIT-green)](#licencia)
+**¿Qué es?** Un HUB genérico para cualquier CSV: Analiza. Visualiza. Explora. Todo en un solo lugar. Sin ataduras a datos educativos — lo único rescatado del proyecto anterior es la idea de pipeline Analizar → Evaluar → Asistir → Actuar, ahora como 4 tipos de proyecto agnósticos.
 
-**¿Por qué existe?** En educación los datos están dispersos: notas en CSV, riesgo en mapas, dudas en chats y propuestas STEAM en Word. **EduAnalytics HUB unifica el ciclo completo Analizar → Evaluar → Asistir → Actuar** sin saltar entre 4 apps. Lo que en 4 repos separados era un Frankenstein, aquí es un HUB coerente, rápido y usable desde el celular en el aula.
+## Pantallas (como la imagen de referencia)
+- Landing `Convierte tus datos en decisiones` + bullets Análisis / ML / Visualización / Colaboración
+- Login (email + 8 chars, botones GitHub/Google demo) · Registro · Verifica 6 dígitos demo `123456`
+- Recupera · Nueva contraseña · 2FA demo · Elige rol (Analista / Desarrollador / Estudiante / Investigador)
+- Home `Hola, Santiago` + buscador + 3 cards (Explorar / Analizar con IA / Nuevo proyecto)
+- Proyectos · Datasets (sube cualquier CSV o usa `datos_ejemplo.csv`) · Explorador (filtros) · IA (OpenRouter opcional, fallback local) · Configuración
 
----
+## Tema
+`background #111110` · `surface #191918` · `borders #2A2A28` · `accent #B9B091` · `text #F2F1EC` · font Inter/SF Pro. Ver `.streamlit/config.toml` + `modules/design.py`.
 
-### 🧭 Sentido lógico — una sola historia, 4 actos
-
-| Acto | Módulo | Pregunta que responde | Valor |
-|------|--------|----------------------|-------|
-| **1. Analizar** | 📊 **Analytics Educativo** | ¿Qué nos dicen los datos? | 14 análisis automatizados (usuarios/semana, deserción, correlación nota-asistencia, habilidades TOP10…) a partir de un CSV. Pasa de “tengo notas” a “sé dónde intervenir”. |
-| **2. Evaluar** | ⛰️ **Dashboard Riesgo** | ¿Dónde intervenir primero? | Mapa Folium + 5 visualizaciones Plotly de vulnerabilidad por barrio en Medellín (índice, población, pendiente). Prioriza con datos, no intuición. Prototipo con disclaimer técnico y fuentes oficiales DAGRD/SIATA/GeoMedellín. |
-| **3. Asistir** | 💬 **Chatbot IA** | ¿Qué hago con este caso? | Asistente streaming `openai/gpt-4o-mini` vía OpenRouter, historial aislado por sesión, fallback `st.secrets` → `os.getenv` para local y Render. Del dato a la conversación. |
-| **4. Actuar** | 🧪 **STEAM Lab** | ¿Cómo lo convierto en proyecto? | Genera en segundos artículo académico STEAM, script Python de análisis y dataset sintético (CSV/Excel) con `gpt-3.5-turbo` + exportación a Word/Excel. De la idea a la evidencia. |
-
-**Narrativa para reclutador:** No son 4 demos pegadas. Es un **pipeline de decisión educativa**: subes el CSV → ves el riesgo en mapa → preguntas al chat qué hacer con el grupo 9 → STEAM Lab te genera la propuesta y los datos para la clase de mañana. **Un flujo, una URL, un login.**
-
----
-
-### ✨ Lo que demuestra (para tu próximo equipo)
-
-* **Arquitectura modular real:** `app.py` router lazy con `@st.cache_resource` (`_load_analytics()` etc.) — cada módulo se importa 1 vez, volver es instantáneo. Nada de re-imports en cada `st.rerun`.
-* **Performance en free tier:** `MPLBACKEND Agg`, `@st.cache_data` para CSV/DF, `plt.close(fig)` tras cada `st.pyplot`, `render.yaml` con `streamlit run app.py --server.port $PORT --server.headless true`. Cold start 60s → ~22s, RAM 800MB → 380MB.
-* **Mobile-first:** `st.file_uploader(type=None)` para que Android no bloquee CSVs con `(4)` en el nombre, `utf-8-sig` para Excel, botón `▶️ Usar datos de ejemplo directamente` que evita el picker de `Descargas/Downloads` en celular.
-* **Resiliencia:** `get_client()` con `try: st.secrets.get()` → `except → os.getenv()` evita `StreamlitSecretNotFoundError` en Render; mensajes claros para `401 User not found` con link a `openrouter.ai/keys`.
-* **Deploy serio:** GitHub `Marusan94/Eduanalytics` (público) → Render con `Python 3.11.9` (`runtime.txt`), `requirements.txt` con `pandas==2.1.0`, `folium`, `streamlit-folium`, `openai`, `python-docx`, `openpyxl`. Secret scanning, `render.yaml` con `sync:false`, tags `backup-pre-*` para rollback en 30s.
-* **Calidad:** `python -m py_compile` verde, `__pycache__` ignorado, `resultados/` gitignore, sin `secrets.toml` en repo.
-
-### 🛠️ Stack
-
-`Streamlit 1.63` · `Pandas 2.1` · `NumPy 1.24` · `Matplotlib 3.7` · `Seaborn 0.12` · `Plotly 7` · `Folium 0.20` · `streamlit-folium 0.27` · `OpenAI SDK 3.10` (OpenRouter) · `python-docx` · `openpyxl`
-
-### 📂 Estructura
-
+## Estructura
 ```
 .
-├── app.py                 # Router + cache de módulos
+├── app.py                 # Router session_state.page DataFlow
 ├── modules/
-│   ├── analytics.py       # 14 análisis + cache + Agg
-│   ├── dashboard.py       # Folium + Plotly + _get_dashboard_df() cache
-│   ├── chatbot.py         # Streaming + fallback secrets
-│   └── steam_lab.py       # Artículo/Script/Dataset + Word/Excel
-├── datos_educativos.csv   # 20KB ejemplo (id_estudiante, nota, asistencia...)
-├── .streamlit/
-│   ├── config.toml        # Tema dark #0F172A / #6C63FF
-│   └── secrets.toml       # OPENROUTER_API_KEY (no commitear)
-├── requirements.txt
+│   ├── design.py          # Tokens + CSS + show_logo + go
+│   ├── auth_ui.py         # 7 pantallas auth simulada
+│   ├── home.py            # Hola + search + cards + sidebar
+│   ├── work.py            # projects/datasets/explorer/ai/settings
+│   ├── generic_analyzer.py# Perfilado agnóstico CSV
+│   └── _legacy/           # Código educativo anterior (no se usa)
+├── datos_ejemplo.csv      # Ventas genéricas (fecha, canal, producto, unidades, ingreso, costo, región)
+├── datos_educativos.csv   # Legacy, solo referencia
+├── .streamlit/config.toml # Tema dark DataFlow
+├── requirements.txt       # streamlit, pandas, numpy, plotly, openai
 ├── runtime.txt            # python-3.11.9
-└── render.yaml            # python + pip install + streamlit run --server.port $PORT
+└── render.yaml            # service dataflow, sync:false para OPENROUTER_API_KEY
 ```
 
-### 🚀 Uso
-
-**Local (recomendado):**
+## Uso
 ```bash
-cd DESKTOP/EDUANALYTICS-HUB-LOCAL  # o Documents/eduanalytics
 pip install -r requirements.txt
-# crea .streamlit/secrets.toml con:
-# OPENROUTER_API_KEY="sk-or-v1-..."
 streamlit run app.py  # http://localhost:8501
 ```
+Demo: cualquier email con @ + password 8 chars → Home. Verify/2FA usan `123456`. En Datasets usa `▶️ Usar datos de ejemplo` para ver el análisis sin subir nada.
 
-**Probar en celular:** En `📊 Analytics Educativo` usa `▶️ Usar datos de ejemplo directamente` si `Descargar csv` + `Sube tu archivo` se queda gris en Android.
+**API Key (opcional):** solo para IA remota. Local: `.streamlit/secrets.toml` con `OPENROUTER_API_KEY`. Render: Environment → `OPENROUTER_API_KEY` (`sync:false`). Sin key, la IA responde local demo.
 
-**API Keys:**
-* Local: `.streamlit/secrets.toml`
-* Render: Dashboard → Environment → `OPENROUTER_API_KEY` (el `render.yaml` está en `sync:false` para no exponerla en Git). Crea una gratis en https://openrouter.ai/keys
+## Deploy Render
+Mismo repo, servicio renombrado a `dataflow` en `render.yaml`. El rename del repo en GitHub (Settings → Rename a DataFlow) lo hace el dueño. Requiere `RENDER_API_KEY` + serviceId para deploy por API.
 
-### 📈 Roadmap (lo que seguiré mejorando)
+## Autor
+**Santiago Marulanda Leguizamo** — UdeA · https://github.com/Marusan94
 
-* [ ] Auth por rol (docente/estudiante/familiar) + guardado de análisis en DB
-* [ ] `st.navigation` multipágina + `st.fragment` para que filtros no recarguen todo
-* [ ] Tests `pytest` + `Playwright` E2E para los 4 módulos
-* [ ] Exportar Dashboard a PDF con mapa real GeoMedellín (GeoJSON)
-
-### 👤 Autor
-
-**Santiago Marulanda Leguizamo** — UdeA · https://github.com/Marusan94 · santiago.marulandal@udea.edu.co
-
-> Construido sin tocar los repos originales (`Documents/eduanalytics`, `Clases CYMETRIA/*`), integrando lo mejor de cada uno en un HUB mantenible. Si te gusta cómo pienso el producto y el deploy, hablemos.
-
-### 📄 Licencia
-
-MIT — úsalo, mejóralo, cita la fuente.
+MIT.
