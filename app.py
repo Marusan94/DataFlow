@@ -31,9 +31,21 @@ def _load_laboratory():
     return laboratory
 
 @st.cache_resource
+def _load_search():
+    from modules import search_engine
+    return search_engine
+
+@st.cache_resource
 def _load_research_assistant():
     from modules import research_assistant
     return research_assistant
+
+# Persistencia liviana: SQLite + session_state (no bloquea primer paint)
+try:
+    from modules.persistence import streamlit_persistence_boot
+    streamlit_persistence_boot()
+except Exception:
+    pass
 
 # Estilo extra para el HUB
 st.markdown("""
@@ -68,7 +80,7 @@ st.sidebar.divider()
 
 mod = st.sidebar.radio(
     "Navegación",
-    ["📊 Analytics Educativo", "⛰️ Dashboard", "🤖 Analista IA", "🔬 Laboratorio", "🧑‍🔬 Asistente de Investigación"],
+    ["📊 Analytics Educativo", "🔎 Buscador", "⛰️ Dashboard", "🤖 Analista IA", "🔬 Laboratorio", "🧑‍🔬 Asistente de Investigación"],
     index=0,
     key="hub_nav"
 )
@@ -91,6 +103,8 @@ st.sidebar.info("💡 Usa `streamlit run app.py` para localhost:8501")
 # Router con cache — cada módulo se importa 1 vez y se reutiliza
 if mod == "📊 Analytics Educativo":
     _load_analytics().render()
+elif mod == "🔎 Buscador":
+    _load_search().render_search_tab()
 elif mod == "⛰️ Dashboard":
     _load_dashboard().render()
 elif mod == "🤖 Analista IA":
@@ -100,7 +114,7 @@ elif mod == "🔬 Laboratorio":
 elif mod == "🧑‍🔬 Asistente de Investigación":
     _load_research_assistant().render()
 else:
-    _load_steam_lab().render()
+    _load_analytics().render()
 
 st.sidebar.divider()
 st.sidebar.info("💡 Tip: Usa `streamlit run app.py` desde esta carpeta para localhost:8501")
