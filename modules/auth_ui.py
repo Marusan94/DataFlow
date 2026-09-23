@@ -52,6 +52,7 @@ def render_landing():
 def render_login():
     _init()
     show_logo(small=True)
+    st.markdown("<div class='df-auth-center'>", unsafe_allow_html=True)
     st.markdown("### Bienvenido de nuevo")
     st.caption("Inicia sesión en tu espacio de trabajo")
     st.button("Continuar con GitHub (demo)", use_container_width=True, on_click=skip_auth)
@@ -81,12 +82,14 @@ def render_login():
             go("register")
     st.write("")
     _skip_button(key="skip_login")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def render_register():
     _init()
     if st.button("← Volver"):
         go("landing")
     show_logo(small=True)
+    st.markdown("<div class='df-auth-center'>", unsafe_allow_html=True)
     st.markdown("### Crea tu cuenta")
     st.caption("Únete a DataFlow y empieza a explorar tus datos.")
     name = st.text_input("Nombre completo", placeholder="Tu nombre")
@@ -110,6 +113,7 @@ def render_register():
         go("login")
     st.write("")
     _skip_button(key="skip_register")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def _code_boxes(prefix="code", n=6):
     """6 casillas como en la imagen DataFlow. Retorna el código unido."""
@@ -128,6 +132,7 @@ def render_verify():
     if st.button("← Volver"):
         go("register")
     show_logo(small=True)
+    st.markdown("<div class='df-auth-center'>", unsafe_allow_html=True)
     st.markdown("### Verifica tu correo")
     email = (st.session_state.user or {}).get("email", st.session_state.pending_email) or "tu@ejemplo.com"
     st.caption(f"Te enviamos un código de 6 dígitos a {email} (demo: {DEMO_CODE}).")
@@ -141,6 +146,7 @@ def render_verify():
             st.error(f"Código demo incorrecto. Usa {DEMO_CODE}.")
     st.write("")
     _skip_button("Saltar verificación →", key="skip_verify")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def render_recover():
     if st.button("← Volver"):
@@ -191,6 +197,7 @@ def render_twofa():
 def render_role():
     show_logo(small=True)
     st.progress(0.25, text="1 de 4")
+    st.markdown("<div class='df-auth-center'>", unsafe_allow_html=True)
     st.markdown("### ¿Cuál es tu rol?")
     st.caption("Nos ayudará a personalizar tu experiencia.")
     cols = st.columns(2)
@@ -203,7 +210,7 @@ def render_role():
                     st.session_state.role_pick = title
                     selected = title
     st.caption(f"Seleccionado: **{selected}**")
-    if st.button("Siguiente →", type="primary"):
+    if st.button("Siguiente →", type="primary", use_container_width=True):
         u = st.session_state.user or {"name": "Santiago", "email": "demo@dataflow.app", "verified": True}
         u["role"] = st.session_state.get("role_pick", ROLES[0][0])
         u["verified"] = True
@@ -211,3 +218,4 @@ def render_role():
         go("home")
     st.write("")
     _skip_button("Elegir después →", key="skip_role")
+    st.markdown("</div>", unsafe_allow_html=True)

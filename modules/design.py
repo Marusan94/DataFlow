@@ -46,6 +46,9 @@ div[data-testid="stTextInput"]:has(input[maxlength="1"]) {{ width:56px !importan
 div[data-testid="stTextInput"]:has(input[maxlength="1"]) input {{
   height:56px !important; font-size:24px !important; text-align:center !important;
   padding:0 !important; }}
+/* Centrar auth forms */
+.df-auth-center {{ max-width:420px; margin:0 auto; padding:24px 0; }}
+.df-auth-center .stButton > button {{ width:100%; }}
 .small-muted {{ color:{MUTED}; font-size:13px; }}
 .df-title {{ font-size:28px; font-weight:700; letter-spacing:-0.02em; }}
 .df-sub {{ color:{MUTED}; font-size:14px; margin-top:4px; }}
