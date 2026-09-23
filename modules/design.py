@@ -28,6 +28,24 @@ div[data-testid="stVerticalBlockBorderWrapper"] {{
   background:transparent !important; color:{TEXT} !important;
   border:1px solid {BORDER} !important; border-radius:8px !important;
 }}
+/* Hero landing */
+.df-hero {{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+  height:65vh; text-align:center; padding:24px; }}
+.df-hero-title {{ font-size:56px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }}
+.df-hero-sub {{ color:{MUTED}; font-size:18px; margin-top:12px; }}
+/* 6 casillas código */
+.df-code-row {{ display:flex; gap:8px; justify-content:center; margin:16px 0; }}
+.df-code-box {{ width:56px; height:56px; text-align:center; font-size:24px; font-weight:600;
+  background:{SURFACE2}; border:2px solid {BORDER}; border-radius:12px; color:{TEXT};
+  -webkit-text-security:none; }}
+@media (prefers-color-scheme: dark) {{
+  .df-code-box {{ background:{SURFACE2}; border-color:{BORDER}; }}
+}}
+/* Reducir altura inputs código Streamlit para alinear */
+div[data-testid="stTextInput"]:has(input[maxlength="1"]) {{ width:56px !important; }}
+div[data-testid="stTextInput"]:has(input[maxlength="1"]) input {{
+  height:56px !important; font-size:24px !important; text-align:center !important;
+  padding:0 !important; }}
 .small-muted {{ color:{MUTED}; font-size:13px; }}
 .df-title {{ font-size:28px; font-weight:700; letter-spacing:-0.02em; }}
 .df-sub {{ color:{MUTED}; font-size:14px; margin-top:4px; }}

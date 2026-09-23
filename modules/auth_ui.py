@@ -14,6 +14,17 @@ def _init():
     st.session_state.setdefault("user", None)
     st.session_state.setdefault("pending_email", "")
 
+def skip_auth():
+    """Auth opcional: entra al Home con usuario demo sin registrarse."""
+    st.session_state.user = {"name": "Santiago", "email": "demo@dataflow.app",
+                             "role": "Analista de datos", "verified": True, "guest": True}
+    go("home")
+
+def _skip_button(label="Omitir por ahora →", key="skip"):
+    st.caption("El registro es opcional en esta demo.")
+    if st.button(label, key=key, use_container_width=True):
+        skip_auth()
+
 def render_landing():
     _init()
     show_logo()
@@ -29,16 +40,22 @@ def render_landing():
             go("login")
         if st.button("Crear cuenta", use_container_width=True):
             go("register")
+        st.write("")
+        _skip_button("Explorar sin cuenta →", key="skip_landing")
     with c2:
-        st.info("Espacio de trabajo DataFlow — sube cualquier CSV y conviértelo en decisiones. Sin ataduras a datos educativos.")
+        st.markdown(
+            "<div class='df-hero'>"
+            "<div class='df-hero-title'>DataFlow</div>"
+            "<div class='df-hero-sub'>Datos. Análisis. Decisiones.</div>"
+            "</div>", unsafe_allow_html=True)
 
 def render_login():
     _init()
     show_logo(small=True)
     st.markdown("### Bienvenido de nuevo")
     st.caption("Inicia sesión en tu espacio de trabajo")
-    st.button("Continuar con GitHub (demo)", use_container_width=True, on_click=lambda: go("home"))
-    st.button("Continuar con Google (demo)", use_container_width=True, on_click=lambda: go("home"))
+    st.button("Continuar con GitHub (demo)", use_container_width=True, on_click=skip_auth)
+    st.button("Continuar con Google (demo)", use_container_width=True, on_click=skip_auth)
     st.caption("o")
     email = st.text_input("Correo electrónico", placeholder="tu@ejemplo.com", value=st.session_state.pending_email)
     pwd = st.text_input("Contraseña", type="password", placeholder="Ingresa tu contraseña")
@@ -62,6 +79,8 @@ def render_login():
     with cc2:
         if st.button("Crear cuenta"):
             go("register")
+    st.write("")
+    _skip_button(key="skip_login")
 
 def render_register():
     _init()
@@ -89,6 +108,20 @@ def render_register():
             go("verify")
     if st.button("¿Ya tienes una cuenta? Inicia sesión"):
         go("login")
+    st.write("")
+    _skip_button(key="skip_register")
+
+def _code_boxes(prefix="code", n=6):
+    """6 casillas como en la imagen DataFlow. Retorna el código unido."""
+    cols = st.columns(n, gap="small")
+    digits = []
+    for i in range(n):
+        with cols[i]:
+            d = st.text_input(f"{prefix}{i}", value=st.session_state.get(f"{prefix}{i}", ""),
+                              max_chars=1, key=f"{prefix}_{i}", label_visibility="collapsed",
+                              placeholder=str(i + 1))
+            digits.append(d.strip())
+    return "".join(digits)
 
 def render_verify():
     _init()
@@ -98,19 +131,16 @@ def render_verify():
     st.markdown("### Verifica tu correo")
     email = (st.session_state.user or {}).get("email", st.session_state.pending_email) or "tu@ejemplo.com"
     st.caption(f"Te enviamos un código de 6 dígitos a {email} (demo: {DEMO_CODE}).")
-    code = st.text_input("Código", placeholder="123456", max_chars=6)
+    code = _code_boxes(prefix="verify", n=6)
     if st.button("Verificar", type="primary", use_container_width=True):
-        if code.strip() == DEMO_CODE:
+        if code == DEMO_CODE:
             if st.session_state.user:
                 st.session_state.user["verified"] = True
             go("role")
         else:
             st.error(f"Código demo incorrecto. Usa {DEMO_CODE}.")
-    c1, c2 = st.columns(2)
-    with c1:
-        st.caption("¿No recibiste el código?")
-    with c2:
-        st.caption("Reenviar (00:42) — demo instantáneo")
+    st.write("")
+    _skip_button("Saltar verificación →", key="skip_verify")
 
 def render_recover():
     if st.button("← Volver"):
@@ -179,3 +209,5 @@ def render_role():
         u["verified"] = True
         st.session_state.user = u
         go("home")
+    st.write("")
+    _skip_button("Elegir después →", key="skip_role")
