@@ -1,6 +1,7 @@
 """Auth simulada DataFlow: 7 pantallas solo UI, sin backend. Verify demo: 123456."""
 import streamlit as st
-from modules.design import show_logo, go
+
+from modules.design import go, show_logo
 
 DEMO_CODE = "123456"
 ROLES = [

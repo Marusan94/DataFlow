@@ -1,13 +1,20 @@
 import os
+
 os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
 import streamlit as st
 
 st.set_page_config(page_title="DataFlow", page_icon="📊", layout="wide", initial_sidebar_state="collapsed")
 
-from modules.design import apply_theme
 from modules import auth_ui
+from modules.design import apply_theme
 from modules.home import render_home
-from modules.work import render_projects, render_datasets, render_explorer, render_ai, render_settings
+from modules.work import (
+    render_ai,
+    render_datasets,
+    render_explorer,
+    render_projects,
+    render_settings,
+)
 
 apply_theme()
 

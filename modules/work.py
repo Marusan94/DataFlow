@@ -1,11 +1,13 @@
 """Proyectos / Datasets / Explorador / IA / Settings — agnósticos."""
-import io, os
+import os
 from datetime import date
+
 import pandas as pd
 import streamlit as st
+
 from modules.design import go
-from modules.home import render_sidebar
 from modules.generic_analyzer import _read_csv_bytes, render_generic_analysis
+from modules.home import render_sidebar
 
 TYPES = ["Análisis tabular", "Mapa", "Chat IA", "Lab"]
 
@@ -15,7 +17,6 @@ def _ensure():
     st.session_state.setdefault("df_name", "")
 
 def render_projects():
-    from modules.home import render_sidebar
     render_sidebar("Proyectos")
     _ensure()
     st.markdown("## Proyectos")
@@ -43,7 +44,6 @@ def _load_example():
     return None, ""
 
 def render_datasets():
-    from modules.home import render_sidebar
     render_sidebar("Datasets")
     _ensure()
     st.markdown("## Datasets")
@@ -71,7 +71,6 @@ def render_datasets():
         st.info("Sube un CSV o usa el ejemplo para ver el análisis agnóstico.")
 
 def render_explorer():
-    from modules.home import render_sidebar
     render_sidebar("Explorador")
     _ensure()
     st.markdown("## Explorador")
@@ -94,7 +93,6 @@ def render_explorer():
     st.download_button("Descargar vista (CSV)", view.to_csv(index=False).encode("utf-8-sig"), "vista.csv", "text/csv")
 
 def render_ai():
-    from modules.home import render_sidebar
     render_sidebar("IA")
     _ensure()
     st.markdown("## Analizar con IA")
@@ -138,7 +136,6 @@ def _local_answer(q, df):
              f"Columnas: {', '.join(info['cols'][:8])}. Afina tu pregunta (ej. correlación, top valores, tendencia).")
 
 def render_settings():
-    from modules.home import render_sidebar
     render_sidebar("Configuración")
     st.markdown("## Configuración")
     u = st.session_state.get("user") or {"name": "Santiago", "role": "Analista de datos", "email": "demo@dataflow.app"}

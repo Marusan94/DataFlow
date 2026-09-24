@@ -1,6 +1,7 @@
 """Home DataFlow: Hola + buscador + 3 cards + sidebar."""
 import streamlit as st
-from modules.design import show_logo, go
+
+from modules.design import go, show_logo
 
 NAV = ["Inicio", "Proyectos", "Datasets", "Explorador", "IA", "Configuración"]
 

@@ -2,6 +2,7 @@
 import pandas as pd
 import streamlit as st
 
+
 @st.cache_data(ttl=3600, show_spinner=False)
 def _read_csv_bytes(data: bytes):
     import io
@@ -13,7 +14,7 @@ def _read_csv_bytes(data: bytes):
 def profile_csv(df: pd.DataFrame) -> dict:
     num = df.select_dtypes(include="number")
     return {
-        "rows": int(len(df)),
+        "rows": len(df),
         "cols": list(df.columns),
         "dtypes": {c: str(t) for c, t in df.dtypes.items()},
         "nulls": {c: int(v) for c, v in df.isnull().sum().items()},
