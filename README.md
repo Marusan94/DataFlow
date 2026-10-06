@@ -4,6 +4,16 @@
 
 **¿Qué es?** Un HUB genérico para cualquier CSV: Analiza. Visualiza. Explora. Todo en un solo lugar. Sin ataduras a datos educativos — lo único rescatado del proyecto anterior es la idea de pipeline Analizar → Evaluar → Asistir → Actuar, ahora como 4 tipos de proyecto agnósticos.
 
+## 🧭 El proyecto en breve
+
+**Analítica self-service**
+
+- **Problema:** Analizar datos exige varias herramientas y saber programar.
+- **Automatización:** Hub donde subes datos y analizas, evalúas y actúas en un solo lugar.
+- **Resultado:** Desplegado y usable hoy.
+
+`Python` · `Streamlit` · `Pandas` — [Demo →](https://eduanalytics.onrender.com) · [Código →](https://github.com/Marusan94/DataFlow)
+
 ## Pantallas (como la imagen de referencia)
 - Landing `Convierte tus datos en decisiones` + bullets Análisis / ML / Visualización / Colaboración
 - Login (email + 8 chars, botones GitHub/Google demo) · Registro · Verifica 6 dígitos demo `123456`
