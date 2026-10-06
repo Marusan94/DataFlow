@@ -1,5 +1,14 @@
 # DataFlow 📊 — Convierte tus datos en decisiones
 
+<p>
+  <img src="https://img.shields.io/badge/python-3.11-blue" alt="python 3.11">
+  <img src="https://img.shields.io/badge/streamlit-app-red" alt="streamlit">
+  <img src="https://img.shields.io/badge/pandas-data-green" alt="pandas">
+  <img src="https://img.shields.io/badge/plotly-charts-blueviolet" alt="plotly">
+  <img src="https://img.shields.io/badge/deploy-render-green" alt="render">
+  <img src="https://img.shields.io/badge/license-MIT-yellow" alt="MIT">
+</p>
+
 > Ex-EduAnalytics HUB, rehecho agnóstico estilo DataFlow. **Stack:** Python 3.11 · Streamlit · Pandas · Plotly · Render · **Estado:** Demo funcional, auth simulada, mobile-ready.
 
 **¿Qué es?** Un HUB genérico para cualquier CSV: Analiza. Visualiza. Explora. Todo en un solo lugar. Sin ataduras a datos educativos — lo único rescatado del proyecto anterior es la idea de pipeline Analizar → Evaluar → Asistir → Actuar, ahora como 4 tipos de proyecto agnósticos.
@@ -13,6 +22,30 @@
 - **Resultado:** Desplegado y usable hoy.
 
 `Python` · `Streamlit` · `Pandas` — [Demo →](https://eduanalytics.onrender.com) · [Código →](https://github.com/Marusan94/DataFlow)
+
+## ✨ Features
+
+| Área | Qué obtienes |
+|------|--------------|
+| 📊 **Analizar** | Perfilado agnóstico de cualquier CSV: tipos, nulos, duplicados, categorías, numéricos y fechas |
+| 📈 **Evaluar** | Visualizaciones Plotly interactivas + métricas por columna para decidir con datos |
+| 🤖 **Asistir** | Chat de IA opcional (OpenRouter) con fallback local si no hay API key |
+| 🎯 **Actuar** | 4 tipos de proyecto agnósticos + datasets, explorador con filtros y configuración |
+| 🔐 **Acceso** | Auth simulada con 7 pantallas (login, registro, 2FA demo, recupero) y 4 roles: Analista / Desarrollador / Estudiante / Investigador |
+| 📁 **Datos** | Sube cualquier CSV o usa `datos_ejemplo.csv` (ventas genéricas) para ver el análisis sin subir nada |
+
+## 🛠️ Stack
+
+| Capa | Tecnologías |
+|------|-------------|
+| **App** | Python 3.11, Streamlit |
+| **Datos** | Pandas, NumPy, Plotly |
+| **IA** | OpenAI-compat (OpenRouter, opcional) |
+| **Deploy** | Render (`render.yaml`), `runtime.txt` python-3.11.9 |
+
+## 🚀 Demo en vivo
+
+[https://eduanalytics.onrender.com](https://eduanalytics.onrender.com) — entra con cualquier email con `@` + contraseña de 8 caracteres. Verificación y 2FA usan `123456`.
 
 ## Pantallas (como la imagen de referencia)
 - Landing `Convierte tus datos en decisiones` + bullets Análisis / ML / Visualización / Colaboración
@@ -54,6 +87,10 @@ Demo: cualquier email con @ + password 8 chars → Home. Verify/2FA usan `123456
 
 ## Deploy Render
 Mismo repo, servicio renombrado a `dataflow` en `render.yaml`. El rename del repo en GitHub (Settings → Rename a DataFlow) lo hace el dueño. Requiere `RENDER_API_KEY` + serviceId para deploy por API.
+
+## 📄 License
+
+MIT — see [LICENSE](LICENSE).
 
 ## Autor
 **Santiago Marulanda Leguizamo** — UdeA · https://github.com/Marusan94
