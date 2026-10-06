@@ -34,6 +34,16 @@
 | 🔐 **Acceso** | Auth simulada con 7 pantallas (login, registro, 2FA demo, recupero) y 4 roles: Analista / Desarrollador / Estudiante / Investigador |
 | 📁 **Datos** | Sube cualquier CSV o usa `datos_ejemplo.csv` (ventas genéricas) para ver el análisis sin subir nada |
 
+## 📸 Screenshots
+
+| Vista | Captura |
+|-------|---------|
+| **Home / Landing** | ![Home](docs/screenshots/home.png) |
+| **Datasets / Upload** | ![Datasets](docs/screenshots/datasets.png) |
+| **Explorador** | ![Explorer](docs/screenshots/explorer.png) |
+
+---
+
 ## 🛠️ Stack
 
 | Capa | Tecnologías |
@@ -46,6 +56,26 @@
 ## 🚀 Demo en vivo
 
 [https://eduanalytics.onrender.com](https://eduanalytics.onrender.com) — entra con cualquier email con `@` + contraseña de 8 caracteres. Verificación y 2FA usan `123456`.
+
+## 🔧 Casos de uso
+
+| Perfil | Qué haces |
+|--------|-----------|
+| **Analista de datos** | Sube CSV → perfilado automático → visualizaciones Plotly → exporta insights |
+| **Desarrollador** | Explora datasets, prueba reglas de validación, integra con API |
+| **Estudiante / Investigador** | Dataset de ejemplo listo, análisis guiado sin configuración, chat IA para preguntas |
+| **Equipo** | Roles diferenciados, proyectos compartidos, historial de versiones |
+
+## 📖 Uso rápido
+
+```bash
+# Local
+pip install -r requirements.txt
+streamlit run app.py  # http://localhost:8501
+
+# Render (push a main → deploy automático)
+# Variables: OPENROUTER_API_KEY (opcional)
+```
 
 ## Pantallas (como la imagen de referencia)
 - Landing `Convierte tus datos en decisiones` + bullets Análisis / ML / Visualización / Colaboración
